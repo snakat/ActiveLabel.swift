@@ -11,14 +11,14 @@ import Foundation
 enum ActiveElement {
     case mention(String)
     case hashtag(String)
-    case url(original: String, trimmed: String)
+    case url(original: String, alter: String, link: String)
     case custom(String)
 
-    static func create(with activeType: ActiveType, text: String) -> ActiveElement {
+    static func create(with activeType: ActiveType, text: String, link: String = "", alter: String = "") -> ActiveElement {
         switch activeType {
         case .mention: return mention(text)
         case .hashtag: return hashtag(text)
-        case .url: return url(original: text, trimmed: text)
+        case .url: return url(original: text, alter: alter, link: link)
         case .custom: return custom(text)
         }
     }
@@ -34,7 +34,7 @@ public enum ActiveType {
         switch self {
         case .mention: return RegexParser.mentionPattern
         case .hashtag: return RegexParser.hashtagPattern
-        case .url: return RegexParser.urlPattern
+        case .url: return "(\(RegexParser.urlPattern)|\(RegexParser.markdownPattern)|\(RegexParser.htmlATagPattern))"
         case .custom(let regex): return regex
         }
     }

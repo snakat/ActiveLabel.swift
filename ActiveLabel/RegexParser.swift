@@ -15,6 +15,8 @@ struct RegexParser {
     static let urlPattern = "(^|[\\s.:;?\\-\\]<\\(])" +
         "((https?://|www\\.|pic\\.)[-\\w;/?:@&=+$\\|\\_.!~*\\|'()\\[\\]%#,☺]+[\\w/#](\\(\\))?)" +
     "(?=$|[\\s',\\|\\(\\).:;?\\-\\[\\]>\\)])"
+    static let markdownPattern = "\\[([\\w\\s\\d.\\-!?\\'\"]+)\\]\\(((?:/|https?://)[\\w\\d./?=#&\\-%]+)\\)"
+    static let htmlATagPattern = "<a href=[\"|\\']?((?:/|https?://)[\\w\\d./?=#&\\-%]+)[\"|\\']?>(.*)</a>"
 
     private static var cachedRegularExpressions: [String : NSRegularExpression] = [:]
 

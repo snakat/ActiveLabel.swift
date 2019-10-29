@@ -29,7 +29,12 @@ class ViewController: UIViewController {
         label.customize { label in
             label.text = "This is a post with #multiple #hashtags and a @userhandle. Links are also supported like" +
             " this one: http://optonaut.co. Now it also supports custom patterns -> are\n\n" +
-                "Let's trim a long link: \nhttps://twitter.com/twicket_app/status/649678392372121601"
+                "Let's trim a long link: \nhttps://twitter.com/twicket_app/status/649678392372121601\n\n"
+                + "Markdown link: \n[I am a markdown link](https://google.com)\n\n"
+                + "Markdown link 1: \n[\"I'm a markdown link?\"](https://github.com/optonaut/ActiveLabel.swift/commits?author=maziyarpanahi&sss=dd-aa%20cc)\n\n"
+                + "HTML <a> tag: \n<a href=\"https://github.com/optonaut/ActiveLabel.swift/commits?author=maziyarpanahi&aaa=bbb\">I am a <a> tag!</a>\n\n"
+                + "HTML <a> tag 1: \n<a href='https://github.com/optonaut/ActiveLabel.swift/commits?author=maziyarpanahi&aaa=bbb'></a>\n\n"
+                + "HTML <a> tag 2: \n<a href=https://github.com/optonaut/ActiveLabel.swift/commits?author=maziyarpanahi>I am a <a> tag too!</a>\n\n"
             label.numberOfLines = 0
             label.lineSpacing = 4
             
@@ -66,7 +71,7 @@ class ViewController: UIViewController {
             label.handleCustomTap(for: customType3) { self.alert("Custom type", message: $0) }
         }
 
-        label.frame = CGRect(x: 20, y: 40, width: view.frame.width - 40, height: 300)
+        label.frame = CGRect(x: 20, y: 40, width: view.frame.width - 40, height: view.frame.height - 20)
         view.addSubview(label)
         
         

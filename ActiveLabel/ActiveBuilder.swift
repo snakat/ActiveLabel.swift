@@ -31,21 +31,50 @@ struct ActiveBuilder {
         var elements: [ElementTuple] = []
 
         for match in matches where match.range.length > 2 {
-            let word = nsstring.substring(with: match.range)
-                .trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let range0 = match.range(at: 0)
+            let range3 = match.range(at: 3)
+            let range6 = match.range(at: 6)
+            let range7 = match.range(at: 7)
+            let range8 = match.range(at: 8)
+            let range9 = match.range(at: 9)
 
-            guard let maxLength = maximumLength, word.count > maxLength else {
-                let range = maximumLength == nil ? match.range : (text as NSString).range(of: word)
-                let element = ActiveElement.create(with: type, text: word)
-                elements.append((range, element, type))
-                continue
+            let word: String
+            let alter: String
+            let link: String
+
+            if range6.length > 0 && range7.length > 0 {
+                word = nsstring.substring(with: range0).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                alter = nsstring.substring(with: range6).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                link = nsstring.substring(with: range7).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            }
+            else if range8.length > 0 {
+                word = nsstring.substring(with: range0).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                link = nsstring.substring(with: range8).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+
+                if range9.length > 0 {
+                    alter = nsstring.substring(with: range9).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                }
+                else {
+                    alter = link
+                }
+            }
+            else {
+                word = nsstring.substring(with: range3).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                alter = word
+                link = word
             }
 
-            let trimmedWord = word.trim(to: maxLength)
-            text = text.replacingOccurrences(of: word, with: trimmedWord)
+            let trimmedAlter: String
+            if let maxLength = maximumLength, alter.count > maxLength {
+                trimmedAlter = alter.trim(to: maxLength)
+            }
+            else {
+                trimmedAlter = alter
+            }
+            text = text.replacingOccurrences(of: word, with: trimmedAlter)
 
-            let newRange = (text as NSString).range(of: trimmedWord)
-            let element = ActiveElement.url(original: word, trimmed: trimmedWord)
+            let newRange = (text as NSString).range(of: trimmedAlter)
+            let element = ActiveElement.url(original: word, alter: trimmedAlter, link: link)
             elements.append((newRange, element, type))
         }
         return (elements, text)
