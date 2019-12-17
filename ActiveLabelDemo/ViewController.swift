@@ -35,6 +35,7 @@ class ViewController: UIViewController {
                 + "HTML <a> tag: \n<a href=\"https://github.com/optonaut/ActiveLabel.swift/commits?author=maziyarpanahi&aaa=bbb\">I am a <a> tag!</a>\n\n"
                 + "HTML <a> tag 1: \n<a href='https://github.com/optonaut/ActiveLabel.swift/commits?author=maziyarpanahi&aaa=bbb'></a>\n\n"
                 + "HTML <a> tag 2: \n<a href=https://github.com/optonaut/ActiveLabel.swift/commits?author=maziyarpanahi>I am a <a> tag too!</a>\n\n"
+                + "HTML <a> tag 3: \n<a href=kaka://keke.com/optonaut/ActiveLabel.swift/commits?author=maziyarpanahi>I am a <a> tag kaka!</a>\n\n"
             label.numberOfLines = 0
             label.lineSpacing = 4
             
